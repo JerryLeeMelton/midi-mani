@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 2rem;
+
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}

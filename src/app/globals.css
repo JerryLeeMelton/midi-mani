@@ -1,25 +1,24 @@
+/* Google Fonts Imports */
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: #96efff;
+  --background-lighter: #c5fff8;
+  --accent-blue: #5fbdff;
+  --accent-purple: #7b66ff;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --text-color: #151515;
 }
 
 html,
 body {
   max-width: 100vw;
+  max-height: 100vh;
   overflow-x: hidden;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text-color);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
