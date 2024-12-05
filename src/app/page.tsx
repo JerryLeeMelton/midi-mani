@@ -25,7 +25,6 @@ const Home: React.FC = () => {
   return (
     <div style={{ padding: "20px" }} className={styles.page}>
       <FileUploader onFileUpload={handleFileUpload} />
-      {uploadedFile && <p>Uploaded file: {uploadedFile.name}</p>}
       {tracks.length > 0 && <MidiVisualizer tracks={tracks} />}
     </div>
   )

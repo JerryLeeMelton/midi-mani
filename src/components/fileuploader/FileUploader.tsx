@@ -1,7 +1,7 @@
 "use client"
 
 import { useDropzone } from "react-dropzone"
-import { FC } from "react"
+import { FC, useState } from "react"
 import styles from "./FileUploader.module.css"
 
 interface FileUploaderProps {
@@ -9,6 +9,8 @@ interface FileUploaderProps {
 }
 
 const FileUploader: FC<FileUploaderProps> = ({ onFileUpload }) => {
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 1) {
       alert("Please upload only one file at a time.")
@@ -16,7 +18,6 @@ const FileUploader: FC<FileUploaderProps> = ({ onFileUpload }) => {
     }
 
     const file = acceptedFiles[0]
-    console.log("FileUploader  :  file == ", file)
     if (
       file == null ||
       (!file.name.toLowerCase().endsWith(".mid") &&
@@ -26,7 +27,8 @@ const FileUploader: FC<FileUploaderProps> = ({ onFileUpload }) => {
       return
     }
 
-    onFileUpload(file)
+    setUploadedFile(file) // Update local state
+    onFileUpload(file) // Notify parent component
   }
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -36,9 +38,21 @@ const FileUploader: FC<FileUploaderProps> = ({ onFileUpload }) => {
   })
 
   return (
-    <div {...getRootProps()} className={styles.container}>
+    <div
+      {...getRootProps()}
+      className={uploadedFile ? styles.containerUploaded : styles.container}
+    >
       <input {...getInputProps()} />
-      <p>Drag and drop your MIDI file here, or click to select.</p>
+      {uploadedFile ? (
+        <div className={styles.uploadedFile}>
+          <p>
+            <strong>Uploaded File:</strong> {uploadedFile.name}
+          </p>
+          <p>Drag and drop a new file to replace it.</p>
+        </div>
+      ) : (
+        <p>Drag and drop your MIDI file here, or click to select.</p>
+      )}
     </div>
   )
 }

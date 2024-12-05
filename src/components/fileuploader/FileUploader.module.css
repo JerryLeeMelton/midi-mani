@@ -4,3 +4,9 @@
   text-align: center;
   cursor: pointer;
 }
+.containerUploaded {
+  border: 1px solid var(--accent-blue);
+  padding: 50px;
+  text-align: center;
+  cursor: pointer;
+}
