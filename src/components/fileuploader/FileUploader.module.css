@@ -1,0 +1,6 @@
+.container {
+  border: 2px dashed var(--accent-purple);
+  padding: 50px;
+  text-align: center;
+  cursor: pointer;
+}
