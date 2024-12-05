@@ -3,19 +3,22 @@
 import Image from "next/image"
 import styles from "./page.module.css"
 import FileUploader from "@/components/fileuploader/FileUploader"
-import { parseMIDI } from "@/modules/midi/midi"
-import { Note } from "@tonejs/midi/dist/Note"
+import { parseMIDIFile, Track } from "@/modules/midi/MidiParser"
+import MidiVisualizer from "@/components/midivisualizer/MidiVisualizer"
 import { useState } from "react"
 
 const Home: React.FC = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [tracks, setTracks] = useState<Track[]>([])
 
-  const handleFileUpload = (file: File | null) => {
+  const handleFileUpload = async (file: File | null) => {
     if (file) {
-      console.log("Uploaded file:", file) // For debugging
-      setUploadedFile(file) // Store the file in state
+      setUploadedFile(file)
+      const parsedTracks = await parseMIDIFile(file)
+      setTracks(parsedTracks) // Store parsed tracks
     } else {
-      setUploadedFile(null) // Clear the file on invalid upload
+      setUploadedFile(null)
+      setTracks([])
     }
   }
 
@@ -23,6 +26,7 @@ const Home: React.FC = () => {
     <div style={{ padding: "20px" }} className={styles.page}>
       <FileUploader onFileUpload={handleFileUpload} />
       {uploadedFile && <p>Uploaded file: {uploadedFile.name}</p>}
+      {tracks.length > 0 && <MidiVisualizer tracks={tracks} />}
     </div>
   )
 }
