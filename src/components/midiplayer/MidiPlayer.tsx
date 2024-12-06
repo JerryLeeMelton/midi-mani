@@ -11,6 +11,7 @@ interface MIDIPlayerProps {
 const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [midi, setMidi] = useState<Midi | null>(null)
+  const [startTime, setStartTime] = useState<string>("0:0:0")
 
   const loadMIDI = async () => {
     const arrayBuffer = await file.arrayBuffer()
@@ -22,10 +23,38 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
     if (!midi) return
 
     await Tone.start() // Ensure Tone.js is ready
-    Tone.getTransport().stop() // Reset playback
-    Tone.getTransport().cancel() // Clear previous events
 
-    midi.tracks.forEach((track) => {
+    if (!isPlaying) {
+      // Stop and reset if starting fresh
+      if (startTime === "0:0:0") {
+        Tone.getTransport().stop()
+        Tone.getTransport().cancel()
+        scheduleMIDIEvents(midi)
+      }
+
+      // Resume from current time or restart
+      Tone.getTransport().start(undefined, startTime)
+      setIsPlaying(true)
+    }
+  }
+
+  const pauseMIDI = () => {
+    if (isPlaying) {
+      setStartTime(Tone.getTransport().position.toString()) // Convert position to string
+      Tone.getTransport().pause()
+      setIsPlaying(false)
+    }
+  }
+
+  const stopMIDI = () => {
+    Tone.getTransport().stop()
+    Tone.getTransport().cancel()
+    setStartTime("0:0:0") // Reset to start of the track
+    setIsPlaying(false)
+  }
+
+  const scheduleMIDIEvents = (midiData: Midi) => {
+    midiData.tracks.forEach((track) => {
       const synth = new Tone.Synth().toDestination()
 
       track.notes.forEach((note) => {
@@ -39,19 +68,6 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
         }, note.time)
       })
     })
-
-    setIsPlaying(true)
-    Tone.getTransport().start()
-  }
-
-  const pauseMIDI = () => {
-    Tone.getTransport().pause()
-    setIsPlaying(false)
-  }
-
-  const stopMIDI = () => {
-    Tone.getTransport().stop()
-    setIsPlaying(false)
   }
 
   React.useEffect(() => {
