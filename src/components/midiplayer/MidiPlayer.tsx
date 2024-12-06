@@ -11,7 +11,7 @@ import {
   mdiVolumeHigh,
   mdiVolumeMedium,
   mdiVolumeLow,
-  mdiVolumeMute,
+  mdiVolumeOff,
 } from "@mdi/js"
 import styles from "./MidiPlayer.module.css"
 
@@ -90,6 +90,19 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
     volumeNode.current.volume.value = newVolume // Update volume in real-time
   }
 
+  const getVolumeIcon = () => {
+    const volumePercentage = ((volume + 60) / 60) * 100 // Convert volume to percentage (0-100)
+    if (volumePercentage > 66) {
+      return mdiVolumeHigh
+    } else if (volumePercentage > 33) {
+      return mdiVolumeMedium
+    } else if (volumePercentage > 0) {
+      return mdiVolumeLow
+    } else {
+      return mdiVolumeOff
+    }
+  }
+
   useEffect(() => {
     loadMIDI()
   }, [file])
@@ -135,7 +148,7 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
 
       <div className={styles.volumeControlContainer}>
         <label htmlFor="volume" className={styles.volumeControlLabel}>
-          <Icon path={mdiVolumeHigh} size={1} />
+          <Icon path={getVolumeIcon()} size={1} />
         </label>
         <input
           id="volume"
