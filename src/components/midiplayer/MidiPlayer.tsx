@@ -22,14 +22,14 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
     if (!midi) return
 
     await Tone.start() // Ensure Tone.js is ready
-    Tone.Transport.stop() // Reset playback
-    Tone.Transport.cancel() // Clear previous events
+    Tone.getTransport().stop() // Reset playback
+    Tone.getTransport().cancel() // Clear previous events
 
     midi.tracks.forEach((track) => {
       const synth = new Tone.Synth().toDestination()
 
       track.notes.forEach((note) => {
-        Tone.Transport.schedule((time) => {
+        Tone.getTransport().schedule((time) => {
           synth.triggerAttackRelease(
             note.name,
             note.duration,
@@ -41,16 +41,16 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
     })
 
     setIsPlaying(true)
-    Tone.Transport.start()
+    Tone.getTransport().start()
   }
 
   const pauseMIDI = () => {
-    Tone.Transport.pause()
+    Tone.getTransport().pause()
     setIsPlaying(false)
   }
 
   const stopMIDI = () => {
-    Tone.Transport.stop()
+    Tone.getTransport().stop()
     setIsPlaying(false)
   }
 
