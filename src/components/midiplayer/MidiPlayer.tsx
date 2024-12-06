@@ -3,6 +3,17 @@
 import React, { useState, useEffect, useRef } from "react"
 import * as Tone from "tone"
 import { Midi } from "@tonejs/midi"
+import Icon from "@mdi/react"
+import {
+  mdiPlay,
+  mdiPause,
+  mdiStop,
+  mdiVolumeHigh,
+  mdiVolumeMedium,
+  mdiVolumeLow,
+  mdiVolumeMute,
+} from "@mdi/js"
+import styles from "./MidiPlayer.module.css"
 
 interface MIDIPlayerProps {
   file: File
@@ -90,26 +101,51 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
 
   return (
     <div>
-      <h2>MIDI Playback</h2>
-      <button onClick={playMIDI} disabled={isPlaying}>
-        Play
-      </button>
-      <button onClick={pauseMIDI} disabled={!isPlaying}>
-        Pause
-      </button>
-      <button onClick={stopMIDI}>Stop</button>
-      <div style={{ marginTop: "20px" }}>
-        <label htmlFor="volume">Volume:</label>
+      <div className={styles.playbackControlButtonsContainer}>
+        <button
+          onClick={playMIDI}
+          disabled={isPlaying}
+          className={styles.playbackControlButton}
+        >
+          <Icon
+            path={mdiPlay}
+            size={1}
+            className={styles.playbackControlButtonIcon}
+          />
+        </button>
+        <button
+          onClick={pauseMIDI}
+          disabled={!isPlaying}
+          className={styles.playbackControlButton}
+        >
+          <Icon
+            path={mdiPause}
+            size={1}
+            className={styles.playbackControlButtonIcon}
+          />
+        </button>
+        <button onClick={stopMIDI} className={styles.playbackControlButton}>
+          <Icon
+            path={mdiStop}
+            size={1}
+            className={styles.playbackControlButtonIcon}
+          />
+        </button>
+      </div>
+
+      <div className={styles.volumeControlContainer}>
+        <label htmlFor="volume" className={styles.volumeControlLabel}>
+          <Icon path={mdiVolumeHigh} size={1} />
+        </label>
         <input
           id="volume"
           type="range"
-          min="-60" // Minimum volume (mute)
-          max="0" // Maximum volume (0 dB)
+          min="-60"
+          max="0"
           value={volume}
           step="1"
           onChange={handleVolumeChange}
         />
-        <span>{volume} dB</span>
       </div>
     </div>
   )

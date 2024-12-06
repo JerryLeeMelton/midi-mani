@@ -1,12 +1,45 @@
 .container {
-  border: 2px dashed var(--accent-purple);
-  padding: 50px;
+  border-style: dashed;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 0 var(--accent-purple);
+
+  padding-bottom: 50px;
+  padding-top: 50px;
+  padding-left: 70px;
+  padding-right: 70px;
+
   text-align: center;
   cursor: pointer;
+  transition: border-color 0.3s ease-out, border-width 0.3s ease-out,
+    box-shadow 0.3s ease-out;
 }
+
 .containerUploaded {
-  border: 1px solid var(--accent-blue);
-  padding: 50px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 0 var(--accent-blue);
+
+  padding-bottom: 50px;
+  padding-top: 50px;
+  padding-left: 70px;
+  padding-right: 70px;
+
   text-align: center;
   cursor: pointer;
+  transition: border-color 0.3s ease-out, border-width 0.3s ease-out,
+    box-shadow 0.3s ease-out;
+}
+
+.uploadedFileName {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.uploaderDescriptionText {
+  font-weight: 400;
+  font-size: 1rem;
 }

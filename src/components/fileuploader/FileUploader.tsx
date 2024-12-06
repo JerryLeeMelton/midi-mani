@@ -45,13 +45,15 @@ const FileUploader: FC<FileUploaderProps> = ({ onFileUpload }) => {
       <input {...getInputProps()} />
       {uploadedFile ? (
         <div className={styles.uploadedFile}>
-          <p>
-            <strong>Uploaded File:</strong> {uploadedFile.name}
+          <p className={styles.uploadedFileName}>{uploadedFile.name}</p>
+          <p className={styles.uploaderDescriptionText}>
+            Drag and drop a new file to replace it.
           </p>
-          <p>Drag and drop a new file to replace it.</p>
         </div>
       ) : (
-        <p>Drag and drop your MIDI file here, or click to select.</p>
+        <p className={styles.uploaderDescriptionText}>
+          Drag and drop your MIDI file here, or click to select.
+        </p>
       )}
     </div>
   )

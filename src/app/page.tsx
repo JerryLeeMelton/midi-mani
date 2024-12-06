@@ -25,12 +25,15 @@ const Home: React.FC = () => {
 
   return (
     <div style={{ padding: "20px" }} className={styles.page}>
-      <FileUploader onFileUpload={handleFileUpload} />
-      {uploadedFile && (
-        <>
-          <MIDIPlayer file={uploadedFile} />
-        </>
-      )}
+      <div>
+        <FileUploader onFileUpload={handleFileUpload} />
+        {uploadedFile && (
+          <>
+            <MIDIPlayer file={uploadedFile} />
+          </>
+        )}
+      </div>
+
       {tracks.length > 0 && (
         <>
           <MidiVisualizer tracks={tracks} />

@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
+    "@mdi/js": "^7.4.47",
+    "@mdi/react": "^1.6.1",
     "@next/font": "^14.2.15",
     "@tonejs/midi": "^2.0.28",
     "next": "15.0.3",
