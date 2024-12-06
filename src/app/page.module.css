@@ -11,6 +11,7 @@
   /* grid-template-rows: 20px 1fr 20px; */
   align-items: center;
   justify-items: center;
+  flex-grow: 1;
   /* min-height: 100svh; */
   padding: 80px;
   gap: 64px;

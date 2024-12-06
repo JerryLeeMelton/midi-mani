@@ -6,6 +6,7 @@ import FileUploader from "@/components/fileuploader/FileUploader"
 import { parseMIDIFile, Track } from "@/modules/midi/MidiParser"
 import MidiVisualizer from "@/components/midivisualizer/MidiVisualizer"
 import { useState } from "react"
+import MIDIPlayer from "@/components/midiplayer/MidiPlayer"
 
 const Home: React.FC = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
@@ -25,7 +26,16 @@ const Home: React.FC = () => {
   return (
     <div style={{ padding: "20px" }} className={styles.page}>
       <FileUploader onFileUpload={handleFileUpload} />
-      {tracks.length > 0 && <MidiVisualizer tracks={tracks} />}
+      {uploadedFile && (
+        <>
+          <MIDIPlayer file={uploadedFile} />
+        </>
+      )}
+      {tracks.length > 0 && (
+        <>
+          <MidiVisualizer tracks={tracks} />
+        </>
+      )}
     </div>
   )
 }
