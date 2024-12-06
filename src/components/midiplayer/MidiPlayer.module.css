@@ -68,8 +68,8 @@
 .customSlider {
   -webkit-appearance: none;
   appearance: none;
-  width: 100%; /* Adjust as needed */
-  height: 8px;
+  width: 160px; /* Adjust as needed */
+  height: 6px;
   /* background: linear-gradient(to right, #ff7e5f, #feb47b); */
   background-color: var(--accent-purple);
   border-radius: 5px;
