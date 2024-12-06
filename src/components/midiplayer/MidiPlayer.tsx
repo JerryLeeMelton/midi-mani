@@ -145,6 +145,7 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
           value={volume}
           step="1"
           onChange={handleVolumeChange}
+          className={styles.customSlider}
         />
       </div>
     </div>

@@ -63,3 +63,47 @@
 .volumeControlContainer {
   color: red;
 }
+
+/* Custom slider */
+.customSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; /* Adjust as needed */
+  height: 8px;
+  /* background: linear-gradient(to right, #ff7e5f, #feb47b); */
+  background-color: var(--accent-purple);
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.customSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--background);
+  border: 2px solid var(--accent-purple);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.customSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.customSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--background);
+  border: 2px solid var(--accent-purple);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.customSlider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
