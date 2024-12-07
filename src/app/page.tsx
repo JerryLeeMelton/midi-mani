@@ -1,46 +1,69 @@
 "use client"
 
-import Image from "next/image"
-import styles from "./page.module.css"
-import FileUploader from "@/components/fileuploader/FileUploader"
-import { parseMIDIFile, Track } from "@/modules/midi/MidiParser"
-import MidiVisualizer from "@/components/midivisualizer/MidiVisualizer"
 import { useState } from "react"
+import FileUploader from "@/components/fileuploader/FileUploader"
 import MIDIPlayer from "@/components/midiplayer/MidiPlayer"
+import RandomizationControls from "@/components/randomizationcontrols/RandomizationControls"
+import { Midi } from "@tonejs/midi"
 
-const Home: React.FC = () => {
+export default function Home() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
-  const [tracks, setTracks] = useState<Track[]>([])
+  const [midi, setMidi] = useState<Midi | null>(null)
+  const [modifiedMidi, setModifiedMidi] = useState<Midi | null>(null)
 
-  const handleFileUpload = async (file: File | null) => {
-    if (file) {
-      setUploadedFile(file)
-      const parsedTracks = await parseMIDIFile(file)
-      setTracks(parsedTracks) // Store parsed tracks
-    } else {
-      setUploadedFile(null)
-      setTracks([])
-    }
+  const handleFileUpload = async (file: File) => {
+    setUploadedFile(file)
+    const arrayBuffer = await file.arrayBuffer()
+    const midiData = new Midi(arrayBuffer)
+    setMidi(midiData)
+    setModifiedMidi(null) // Reset modifications
+  }
+
+  const handleApplyRandomization = (
+    timingRange: number,
+    velocityRange: number
+  ) => {
+    if (!midi) return
+
+    const newMidi = new Midi(midi.toArray()) // Clone the original MIDI file
+    newMidi.tracks.forEach((track) => {
+      track.notes.forEach((note) => {
+        // Randomize timing
+        const timeShift = Math.random() * 2 * timingRange - timingRange // Range: [-timingRange, timingRange]
+        note.time += timeShift / 1000 // Convert ms to seconds
+
+        // Randomize velocity
+        const velocityShift = Math.random() * 2 * velocityRange - velocityRange // Range: [-velocityRange, velocityRange]
+        note.velocity = Math.max(0, Math.min(1, note.velocity + velocityShift)) // Clamp between 0 and 1
+      })
+    })
+
+    setModifiedMidi(newMidi) // Update the modified MIDI
+  }
+
+  const handleDownload = () => {
+    if (!modifiedMidi) return
+
+    const blob = new Blob([modifiedMidi.toArray()], { type: "audio/midi" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "modified-file.mid"
+    a.click()
   }
 
   return (
-    <div style={{ padding: "20px" }} className={styles.page}>
-      <div>
-        <FileUploader onFileUpload={handleFileUpload} />
-        {uploadedFile && (
-          <>
-            <MIDIPlayer file={uploadedFile} />
-          </>
-        )}
-      </div>
-
-      {tracks.length > 0 && (
+    <div style={{ padding: "20px" }}>
+      <FileUploader onFileUpload={handleFileUpload} />
+      {uploadedFile && (
         <>
-          <MidiVisualizer tracks={tracks} />
+          <RandomizationControls onApply={handleApplyRandomization} />
+          <MIDIPlayer file={modifiedMidi || uploadedFile} />
+          <button onClick={handleDownload} disabled={!modifiedMidi}>
+            Download Modified File
+          </button>
         </>
       )}
     </div>
   )
 }
-
-export default Home

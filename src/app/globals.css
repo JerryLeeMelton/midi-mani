@@ -48,3 +48,9 @@ a {
     color-scheme: dark;
   }
 }
+
+.button {
+  background-color: var(--accent-blue);
+  color: var(--text-color);
+  border: none;
+}

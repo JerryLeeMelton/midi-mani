@@ -16,7 +16,7 @@ import {
 import styles from "./MidiPlayer.module.css"
 
 interface MIDIPlayerProps {
-  file: File
+  file: File | Midi // Accept both File and Midi types
 }
 
 const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
@@ -28,9 +28,13 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
   const volumeNode = useRef(new Tone.Volume(volume).toDestination()) // Volume control node
 
   const loadMIDI = async () => {
-    const arrayBuffer = await file.arrayBuffer()
-    const midiData = new Midi(arrayBuffer)
-    setMidi(midiData)
+    if (file instanceof File) {
+      const arrayBuffer = await file.arrayBuffer()
+      const midiData = new Midi(arrayBuffer)
+      setMidi(midiData)
+    } else {
+      setMidi(file) // Directly use the Midi object
+    }
   }
 
   const playMIDI = async () => {
