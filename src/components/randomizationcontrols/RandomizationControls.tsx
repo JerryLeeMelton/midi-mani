@@ -18,13 +18,8 @@ const RandomizationControls: React.FC<RandomizationControlsProps> = ({
   }
 
   return (
-    <div
-      style={{ marginTop: "20px" }}
-      className={styles.randomizationControlsContainer}
-    >
-      <h2 className={styles.randomizationControlsHeader}>
-        Randomization Controls
-      </h2>
+    <div className={styles.randomizationControlsContainer}>
+      <h2 className={styles.randomizationControlsHeader}>Humanization</h2>
       <div className={styles.randomizationControlsInputContainer}>
         <label>Timing Range (ms):</label>
         <input

@@ -6,6 +6,8 @@ import MIDIPlayer from "@/components/midiplayer/MidiPlayer"
 import RandomizationControls from "@/components/randomizationcontrols/RandomizationControls"
 import { Midi } from "@tonejs/midi"
 import styles from "./page.module.css"
+import DownloadButton from "@/components/downloadbutton/DownloadButton"
+
 export default function Home() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [midi, setMidi] = useState<Midi | null>(null)
@@ -57,15 +59,12 @@ export default function Home() {
       <FileUploader onFileUpload={handleFileUpload} />
       {uploadedFile && (
         <>
-          <RandomizationControls onApply={handleApplyRandomization} />
           <MIDIPlayer file={modifiedMidi || uploadedFile} />
-          <button
-            onClick={handleDownload}
+          <RandomizationControls onApply={handleApplyRandomization} />
+          <DownloadButton
+            onDownload={handleDownload}
             disabled={!modifiedMidi}
-            className={styles.downloadButton}
-          >
-            Download Modified File
-          </button>
+          />
         </>
       )}
     </div>

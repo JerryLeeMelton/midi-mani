@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .randomizationControlsHeader {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 
@@ -21,9 +21,12 @@
 
 .randomizationControlsInput {
   display: flex;
-  font-size: 1.2rem;
-  padding: 10px;
+  font-size: 1.1rem;
+  padding: 6px;
   text-align: center;
+
+  width: 100%;
+  max-width: 160px;
 
   color: var(--text-color);
 
@@ -32,14 +35,31 @@
   background-color: var(--background-lightest);
 }
 
-.runRandomizationButton {
+/* .runRandomizationButton {
   border-radius: 10px;
   border: none;
 
   color: var(--text-color);
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding: 16px;
   background-color: var(--accent-purple);
   cursor: pointer;
+} */
+
+.runRandomizationButton {
+  border-radius: 10px;
+  border: none;
+
+  color: var(--text-color);
+  font-size: 1.1rem;
+  padding: 16px;
+  background-color: var(--background-lighter);
+  cursor: pointer;
+
+  transition: background-color 0.1s ease-out;
+}
+.runRandomizationButton:hover {
+  background-color: var(--background-lightest);
+  transition: background-color 0.1s ease-out;
 }

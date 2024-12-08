@@ -7,6 +7,10 @@
 
   gap: 2rem;
 
+  /* background-color: var(--background-lighter); */
+  background-color: var(--background);
+
   padding-top: 5rem;
   padding-bottom: 5rem;
+  margin-top: 10rem;
 }

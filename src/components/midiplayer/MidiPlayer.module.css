@@ -1,6 +1,6 @@
 /* Playback control buttons container */
 .playbackControlButtonsContainer {
-  margin-top: 24px;
+  /* margin-top: 24px; */
   display: flex;
   flex-direction: row;
   justify-content: center;
