@@ -1,4 +1,4 @@
-.page {
+.pageContainer {
   --gray-rgb: 0, 0, 0;
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
@@ -19,7 +19,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .page {
+  .pageContainer {
     --gray-rgb: 255, 255, 255;
     --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
@@ -105,6 +105,20 @@ a.secondary {
 
 .footer img {
   flex-shrink: 0;
+}
+
+.downloadButton {
+  border-radius: 10px;
+  border: none;
+  background-color: var(--accent-purple);
+  color: white;
+  font-size: 1.2rem;
+  padding: 16px;
+  cursor: pointer;
+}
+.downloadButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Enable hover only on non-touch devices */
