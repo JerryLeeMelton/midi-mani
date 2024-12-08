@@ -50,7 +50,8 @@ export default function Home() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = "modified-file.mid"
+    const trimmed = uploadedFile?.name.replace(/\.[^/.]+$/, "")
+    a.download = trimmed ? `${trimmed}-modified.mid` : "modified-file.mid"
     a.click()
   }
 
