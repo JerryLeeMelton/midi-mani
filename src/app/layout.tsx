@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import localFont from "next/font/local"
 import "./globals.css"
 import { Header } from "@/components/header/Header"
 import { Footer } from "@/components/footer/Footer"
@@ -13,11 +12,6 @@ export const metadata: Metadata = {
 const comfortaa = Comfortaa({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-})
-
-const mukta = Mukta({
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
 })
 
 export default function RootLayout({

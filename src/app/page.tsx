@@ -27,20 +27,22 @@ export default function Home() {
   ) => {
     if (!midi) return
 
-    const newMidi = new Midi(midi.toArray()) // Clone the original MIDI file
+    const newMidi = new Midi(midi.toArray())
     newMidi.tracks.forEach((track) => {
       track.notes.forEach((note) => {
         // Randomize timing
-        const timeShift = Math.random() * 2 * timingRange - timingRange // Range: [-timingRange, timingRange]
+        const timeShift = Math.random() * 2 * timingRange - timingRange
         note.time += timeShift / 1000 // Convert ms to seconds
 
         // Randomize velocity
-        const velocityShift = Math.random() * 2 * velocityRange - velocityRange // Range: [-velocityRange, velocityRange]
-        note.velocity = Math.max(0, Math.min(1, note.velocity + velocityShift)) // Clamp between 0 and 1
+        const velocityRangeNormalized = velocityRange / 127 // Convert 0–127 to 0–1 for tonejs
+        const velocityShift =
+          Math.random() * 2 * velocityRangeNormalized - velocityRangeNormalized
+        note.velocity = Math.max(0, Math.min(1, note.velocity + velocityShift)) // Clamp between 0 and 1 for tonejs
       })
     })
 
-    setModifiedMidi(newMidi) // Update the modified MIDI
+    setModifiedMidi(newMidi)
   }
 
   const handleDownload = () => {
