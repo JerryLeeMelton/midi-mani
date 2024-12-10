@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { Header } from "@/components/header/Header"
 import { Footer } from "@/components/footer/Footer"
-import { Comfortaa, Mukta } from "next/font/google"
+import { Comfortaa } from "next/font/google"
 
 export const metadata: Metadata = {
   title: "Create Next App",

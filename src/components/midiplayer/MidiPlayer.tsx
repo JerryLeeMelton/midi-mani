@@ -109,7 +109,7 @@ const MIDIPlayer: React.FC<MIDIPlayerProps> = ({ file }) => {
 
   useEffect(() => {
     loadMIDI()
-  }, [file])
+  }, [file, loadMIDI])
 
   useEffect(() => {
     // Update volume node when volume changes
