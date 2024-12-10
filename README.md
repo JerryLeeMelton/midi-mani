@@ -10,3 +10,9 @@ Make edits to the available parameters, then run your edits using the correspond
 
 When that's done you can preview your edits and then, if you're happy, download the resulting MIDI file for use in a DAW or sequencer.
 
+This is meant to be an on-going project and will have new features in the future.  Planned features include:
+
+- Transposing notes to different keys.
+- Splitting tracks.
+- Quantizing notes.
+- Introducing a piano roll interface to visualize MIDI data.
